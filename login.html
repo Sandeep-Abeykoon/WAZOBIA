@@ -54,14 +54,33 @@
   </div>
 
   <script type = "text/javascript">
-     const REALM_APP = new Realm.App({
+
+    const EMAIL_FIELD = document.getElementById('email-address');
+    const PASSWORD_FIELD = document.getElementById('password');
+    const LOGIN_BUTTON = document.getElementById('login-button');
+
+    const REALM_APP = new Realm.App({
             id: "wazobia-viccz"
         });
 
-        const EMAIL_FIELD = document.getElementById('email-address');
-        const PASSWORD_FIELD = document.getElementById('password');
-        const LOGIN_BUTTON = document.getElementById('login-button');
 
+     async function onLoginButtonClicked() {
+       try{
+          const EMAIL_PASSWORD_CREDENTIAL = Realm.Credentials.emailPassword(
+          EMAIL_FIELD.value.toLowerCase().trim(),
+          PASSWORD_FIELD.value
+         );
+
+         const EMAIL_PASSWORD_USER = await REALM_APP.logIn(EMAIL_PASSWORD_CREDENTIAL);
+         window.location.href = "index.html";
+
+       } catch(error) {
+        console.log(error);
+       }
+     }
+
+     
+        
   </script>
   
 </body>
