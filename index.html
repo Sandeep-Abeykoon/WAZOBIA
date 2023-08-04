@@ -59,6 +59,25 @@
         </div>
       </div>
       <script type="text/javascript">
+
+        // Connecting to the Realm App
+        const REALM_APP = new Realm.App({
+            id: "wazobia-viccz"
+        });
+
+        const AUTHENTICATE_USER_ANONYMOUSLY = async () => {
+            const ANONYMOUS_USER = await REALM_APP.logIn(Realm.Credentials.anonymous());
+            console.log(ANONYMOUS_USER);
+        }
+
+        if(!(REALM_APP?.currentUser?.isLoggedIn)) {
+            AUTHENTICATE_USER_ANONYMOUSLY();
+        }
+
+        console.log(REALM_APP?.currentUser)
+
+
+        // Loading the site cards
         const SITE_LIST = [
     {
         "sight_id": 1,
