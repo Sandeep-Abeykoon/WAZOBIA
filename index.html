@@ -9,6 +9,164 @@
     <script src="https://unpkg.com/realm-web/dist/bundle.iife.js"></script>
 </head>
 <body>
+    <div class="min-h-screen bg-white">
+        <nav class="bg-white border-b border-gray-200">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+              <div class="flex">        
+                <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                  <a href="#" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" aria-current="page">
+                    Home
+                  </a>              
+                </div>
+              </div>
+              <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                <button type="button" class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <span class="sr-only">Logout</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                </button>
+      
+              </div>
+             
+            </div>
+          </div>
+      
+        </nav>
+      
+        <div class="py-10">
+          <header>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h1 class="text-3xl font-bold leading-tight text-gray-900">
+                Home
+              </h1>
+            </div>
+          </header>
     
+          <main>
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white">
+                    <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+                      <div id="site-list" class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+                             <!--  This Is Where You Should Insert Your Site-->
+
+                      </div>                
+                    </div>
+                </div>
+            </div>
+          </main>
+        </div>
+      </div>
+      <script type="text/javascript">
+        const SITE_LIST = [
+    {
+        "sight_id": 1,
+        "name": "Lagos Harbour",
+        "location": "Lagos, Nigeria",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/lagos-harbour.jpg?alt=media&token=3759ab64-709b-42fb-9855-65f8fb8a5fbf"
+    },
+    {
+        "sight_id": 2,
+        "name": "African Renaissance Monument",
+        "location": "Dakar, Senegal",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/african-renaissance-monument.jpg?alt=media&token=2690587e-e366-4150-9e8e-4b7e1dc67cf4"
+    },
+    {
+        "sight_id": 3,
+        "name": "St. Paul's Cathedral",
+        "location": "Abidjan, Cote D'Ivoire",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/st-pauls-cathedral.jpg?alt=media&token=dab2fbf0-e81b-425f-83e5-03fc0cdfb41b"
+    },
+    {
+        "sight_id": 4,
+        "name": "Fathala Wildlife Reserve",
+        "location": "Karang, Senegal",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/fathala.jpg?alt=media&token=693134b5-c485-486e-892c-c9a5ce520458"
+    },
+    {
+        "sight_id": 5,
+        "name": "Tamala Resort",
+        "location": "Serrekunda, Gambia",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/tamala-resort.jpg?alt=media&token=67c09ee6-7db4-497a-b40c-8b9a74e74890"
+    },
+    {
+        "sight_id": 6,
+        "name": "Black Start Monument",
+        "location": "Accra, Ghana",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/black-start-square.jpg?alt=media&token=668a24b1-2585-4a01-8bb5-d1cbd68be951"
+    },
+    {
+        "sight_id": 7,
+        "name": "Independence Arch",
+        "location": "Accra, Ghana",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/independence-arch.jpg?alt=media&token=fad917fb-c489-43ce-afef-0df56fa59914"
+    },
+    {
+        "sight_id": 8,
+        "name": "Place du Souvenir Africain",
+        "location": "Dakar, Senegal",
+        "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/place-souvenir.jpg?alt=media&token=d6f7ea5f-5e13-4198-b979-b56f861d8c3e"
+    }
+];
+        const SITE_LIST_CONTAINER_DIV = document.getElementById('site-list');
+
+        SITE_LIST.forEach((siteData) => {
+            const SITE_ITEM_FRAGMENT = `
+                             <div class="group site-card">
+                                <div class="mb-2">
+                                  <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                                    <button
+                                      type="button"
+                                      class="vote-button relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                    >
+                                      <svg
+                                        class="-ml-1 mr-2 h-5 w-5 text-gray-400"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                      >
+                                        <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                        />
+                                      </svg>
+                                      Like
+                                    </button>
+                                    <button
+                                      type="button"
+                                      class="vote-count -ml-px relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                    >
+                                      0
+                                    </button>
+                                  </span>
+                                </div>
+                              
+                                <a href="#">
+                                  <div
+                                    class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8"
+                                  >
+                                    <img
+                                      src= ${siteData.image_url}
+                                      alt= ${siteData.name}
+                                      class="w-full h-full object-center object-cover group-hover:opacity-75 site-image"
+                                    />
+                                  </div>
+                              
+                                  <h3 class="mt-4 text-sm text-gray-700 site-location">
+                                    ${siteData.location}
+                                  </h3>
+                                  <p class="mt-1 text-lg font-medium text-gray-900 site-name">
+                                    ${siteData.name}
+                                  </p>
+                                </a>
+                              </div>`;
+
+            SITE_LIST_CONTAINER_DIV.insertAdjacentHTML("beforeend", SITE_ITEM_FRAGMENT);
+        });
+      </script>
 </body>
 </html>
