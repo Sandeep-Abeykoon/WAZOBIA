@@ -128,14 +128,40 @@
         "image_url": "https://firebasestorage.googleapis.com/v0/b/wazobia-a843d.appspot.com/o/place-souvenir.jpg?alt=media&token=d6f7ea5f-5e13-4198-b979-b56f861d8c3e"
     }
 ];
+
+        async function onVoteButtonClicked(siteID){
+            const INSERT_VOTE = await REALM_APP.currentUser
+              .mongoClient("mongodb-atlas")
+              .db("wazobia")
+              .collection("likes")
+              .insertOne({
+                siteId: siteID.toString(),
+                voter_id: REALM_APP.currentUser.id
+              });
+            console.log(INSERT_VOTE);
+
+            const BUTTON_TO_UPDATE = document.getElementById(`vote-count-${siteID}`);
+            const VOTE_COUNT = await REALM_APP.currentUser
+              .mongoClient("mongodb-atlas")
+              .db("wazobia")
+              .collection("likes")
+              .count({
+                siteId: siteID.toString(),
+              });
+
+              BUTTON_TO_UPDATE.innerText = VOTE_COUNT
+        }       
+
         const SITE_LIST_CONTAINER_DIV = document.getElementById('site-list');
 
         SITE_LIST.forEach((siteData) => {
             const SITE_ITEM_FRAGMENT = `
-                             <div class="group site-card">
+                             <div id = "${siteData.sight_id}" class="group site-card">
                                 <div class="mb-2">
                                   <span class="relative z-0 inline-flex shadow-sm rounded-md">
                                     <button
+                                      onClick = "onVoteButtonClicked(${siteData.sight_id})"
+                                      id = "vote-button-${siteData.sight_id}"
                                       type="button"
                                       class="vote-button relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
                                     >
@@ -156,6 +182,7 @@
                                       Like
                                     </button>
                                     <button
+                                      id = "vote-count-${siteData.sight_id}"
                                       type="button"
                                       class="vote-count -ml-px relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
                                     >
