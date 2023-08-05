@@ -82,6 +82,8 @@
                       </div>
                       <div class="mt-3 flex items-center justify-between">
                         <button
+                                id="update-button"
+                                onclick="onUpdateButtonClicked()"
                                 type="submit"
                                 class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         >
@@ -105,11 +107,33 @@
 
           const URL_PARAMS = new URLSearchParams(window.location.search);
           const COMMENT_ID_PARAM = URL_PARAMS.get("commentID");
+          const COMMENT_BOX = document.getElementById("comment");
+          const COMMENT_OBJECT_ID =  Realm.BSON.ObjectId.createFromHexString(COMMENT_ID_PARAM);
+
+          async function onUpdateButtonClicked() {
+            try {
+              const COMMENT_UPDATE_OPERATION = await REALM_APP.currentUser
+              .mongoClient("mongodb-atlas")
+              .db("wazobia")
+              .collection("comments")
+              .updateOne({
+              _id : COMMENT_OBJECT_ID
+              }, {
+                "$set" : {
+                  "comment": COMMENT_BOX.value.trim()
+                }
+              });
+
+              console.log(COMMENT_UPDATE_OPERATION);
+
+            } catch (error) {
+              console.log(error);
+            }
+            
+          }
           
           async function FetchCommentToUpdate() {
             try {
-              const COMMENT_OBJECT_ID = await Realm.BSON.ObjectId.createFromHexString(COMMENT_ID_PARAM);
-              
               const COMMENT_TO_UPDATE = await REALM_APP.currentUser
               .mongoClient("mongodb-atlas")
               .db("wazobia")
@@ -118,7 +142,6 @@
               _id : COMMENT_OBJECT_ID
               });
 
-              const COMMENT_BOX = document.getElementById("comment");
               COMMENT_BOX.value = COMMENT_TO_UPDATE.comment;
 
             } catch (error) {
