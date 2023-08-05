@@ -174,6 +174,11 @@
     SITE_NAME.innerText = SITE_DATA.name;
     SITE_LOCATION.innerText = SITE_DATA.location;
 
+    async function onUpdateButtonClicked(buttonElement) {
+      window.location.href = `comment-update.html?commentID=${buttonElement.dataset.siteid}`;
+
+    }
+
     async function onDeleteButtonClicked(buttonElement) {
       const COMMENT_OBJECT_ID = await Realm.BSON.ObjectId.createFromHexString(buttonElement.id)
       try {
@@ -209,7 +214,7 @@
                                           </div>
                                           <div class="mt-2 text-sm space-x-2">                                           
                                             <button id="${comment._id.toString()}" onclick = "onDeleteButtonClicked(this)" type="button" class="text-gray-900 font-medium">Delete</button>
-                                            <button type="button" class="text-gray-900 font-medium">Update</button>
+                                            <button data-siteID="${comment._id.toString()}" onclick = "onUpdateButtonClicked(this)" type="button" class="text-gray-900 font-medium">Update</button>
                                           </div>
                                         </div>
                                       </div>
@@ -263,7 +268,7 @@
                                           </div>
                                           <div class="mt-2 text-sm space-x-2">                                           
                                             <button id="${comment._id.toString()}" onclick = "onDeleteButtonClicked(this)" type="button" class="text-gray-900 font-medium">Delete</button>
-                                            <button type="button" class="text-gray-900 font-medium">Update</button>
+                                            <button data-siteID="${comment._id.toString()}" onclick = "onUpdateButtonClicked(this)" type="button" class="text-gray-900 font-medium">Update</button>
                                           </div>
                                         </div>
                                       </div>
