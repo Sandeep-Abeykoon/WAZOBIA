@@ -233,7 +233,14 @@
       const COMMENT_BOX = document.getElementById("comment");
 
       try {
-        const INSERT_COMMENT = await REALM_APP.currentUser
+        const INSERT_COMMENT_WITH_FUNCTION = await REALM_APP.currentUser.callFunction(
+          "COMMENT",
+          {site_id: SITE_ID_PARAM,
+          comment: COMMENT_BOX.value.trim(),
+          commenter: REALM_APP?.currentUser?.id}
+           );
+
+        /*const INSERT_COMMENT = await REALM_APP.currentUser
         .mongoClient("mongodb-atlas")
         .db("wazobia")
         .collection("comments")
@@ -241,8 +248,11 @@
         site_id: SITE_ID_PARAM,
         comment: COMMENT_BOX.value.trim(),
         commenter: REALM_APP?.currentUser?.id
-      });
+      }); 
       console.log(INSERT_COMMENT);
+      */
+
+      console.log(INSERT_COMMENT_WITH_FUNCTION);
 
       const COMMENTS_FROM_DB = await REALM_APP.currentUser
         .mongoClient("mongodb-atlas")
