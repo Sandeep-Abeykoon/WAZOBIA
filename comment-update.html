@@ -103,8 +103,31 @@
             id: "wazobia-viccz"
           });
 
-          const URL_PARAMS = new URLSearchParams(widow.location.search);
-          const SITE_ID_PARAM = URL_PARAMS.get("commentID");
+          const URL_PARAMS = new URLSearchParams(window.location.search);
+          const COMMENT_ID_PARAM = URL_PARAMS.get("commentID");
+          
+          async function FetchCommentToUpdate() {
+            try {
+              const COMMENT_OBJECT_ID = await Realm.BSON.ObjectId.createFromHexString(COMMENT_ID_PARAM);
+              
+              const COMMENT_TO_UPDATE = await REALM_APP.currentUser
+              .mongoClient("mongodb-atlas")
+              .db("wazobia")
+              .collection("comments")
+              .findOne({
+              _id : COMMENT_OBJECT_ID
+              });
+
+              const COMMENT_BOX = document.getElementById("comment");
+              COMMENT_BOX.value = COMMENT_TO_UPDATE.comment;
+
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          
+          FetchCommentToUpdate();
+          
       </script>
 
   </body>
